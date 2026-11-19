@@ -1,4 +1,4 @@
-# Swiggy Dark Kitchen Opportunity Finder 🍳
+# Swiggy Dark Kitchen Opportunity Finder 
 
 > **"Where should Swiggy's next dark kitchen open? I built a data engine to answer that."**
 
@@ -6,17 +6,17 @@
 
 ---
 
-## 🧠 The Problem
+##  The Problem
 
 Swiggy operates hundreds of dark kitchens across India, but identifying the **optimal location + cuisine combination** for the next one requires synthesising supply-side data (what's already available) with demand signals (what consumers are searching for). Manual research doesn't scale.
 
-## 🔬 Methodology
+##  Methodology
 
 1. **Data Collection** — Query the Swiggy MCP API across **20 Delhi NCR pin codes** to collect restaurant supply data including cuisines, ratings, and rating volumes.
 2. **Gap Analysis** — Compute a `weighted_supply_score` per (area, cuisine) pair, estimate city-wide demand via mean rating counts, and normalise the difference into a **0–100 gap score**.
 3. **Opportunity Ranking** — Classify every area–cuisine pair into **Gold** (>70), **Silver** (40–70), or **Bronze** (<40) tiers, surfacing the most underserved markets.
 
-## 📊 Key Findings
+##  Key Findings
 
 | Metric | Value |
 |--------|-------|
@@ -28,7 +28,7 @@ Swiggy operates hundreds of dark kitchens across India, but identifying the **op
 
 > *Numbers are representative and will vary based on live API data.*
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ncr_areas.csv → Swiggy MCP API → PostgreSQL → Analysis Engine → Streamlit Dashboard
@@ -55,7 +55,7 @@ swiggy-dark-kitchen/
     └── opportunity_map.html  # Generated map (after running)
 ```
 
-## 🚀 Setup — 5 Commands
+##  Setup — 5 Commands
 
 ```bash
 # 1. Install dependencies
@@ -76,7 +76,7 @@ python src/analysis.py
 streamlit run src/streamlit_app.py
 ```
 
-## ⚙️ Configuration
+##  Configuration
 
 Copy `.env.example` to `.env` and set:
 
@@ -87,7 +87,7 @@ Copy `.env.example` to `.env` and set:
 | `SWIGGY_DINEOUT_URL` | MCP Dineout server URL (default: `https://mcp.swiggy.com/dineout`) |
 | `DATABASE_URL` | PostgreSQL connection string |
 
-## 🛡️ Error Handling
+##  Error Handling
 
 | HTTP Code | Behaviour |
 |-----------|-----------|
@@ -96,7 +96,7 @@ Copy `.env.example` to `.env` and set:
 | `502/503/504` | Exponential backoff with jitter (max 5 retries) |
 | `200` with `success: false` | Terminal domain error — log and skip |
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **API**: Swiggy Builders Club MCP (JSON-RPC 2.0)
 - **Backend**: Python 3.11+, PostgreSQL, psycopg2
